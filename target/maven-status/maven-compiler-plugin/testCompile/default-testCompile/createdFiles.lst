@@ -1,4 +1,0 @@
-com/example/ssoldap/config/TestSecurityConfig.class
-com/example/ssoldap/service/ActiveDirectoryServiceTest.class
-com/example/ssoldap/controller/UserControllerTest.class
-com/example/ssoldap/SsoSpringLdapApplicationTests.class
