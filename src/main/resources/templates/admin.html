@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - <span th:text="${appTitle}">Corporate SSO Portal</span></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a th:href="@{/}" class="logo" th:text="${logoText}">MyCompany</a>
+            <h1 class="app-title" th:text="${appTitle}">Corporate SSO Portal</h1>
+            <div class="user-info" sec:authorize="isAuthenticated()">
+                <span class="user-name" th:text="${displayName ?: 'Unknown User'}">User Name</span>
+                <a th:href="@{/logout}" class="logout-btn">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav" sec:authorize="isAuthenticated()">
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a th:href="@{/}" class="nav-link">Home</a></li>
+                <li><a th:href="@{/profile}" class="nav-link">Profile</a></li>
+                <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin}" class="nav-link active">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <h2>Administration Panel</h2>
+            
+            <div class="alert alert-success" sec:authorize="hasRole('ADMIN')">
+                <strong>Administrator Access Granted:</strong> Welcome to the admin panel, <span th:text="${displayName}">Admin</span>!
+            </div>
+
+            <div class="card">
+                <div class="card-header">System Status</div>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Application Status:</th>
+                            <td><span class="badge badge-success">Running</span></td>
+                        </tr>
+                        <tr>
+                            <th>LDAP Connection:</th>
+                            <td><span class="badge badge-success">Connected</span></td>
+                        </tr>
+                        <tr>
+                            <th>Authentication Method:</th>
+                            <td>Active Directory LDAP + Windows Authentication</td>
+                        </tr>
+                        <tr>
+                            <th>Current Admin:</th>
+                            <td th:text="${displayName}">Administrator Name</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Administrative Functions</div>
+                <div style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                    <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: var(--border-radius);">
+                        <h4 style="margin-bottom: 0.5rem; color: var(--gray-800);">User Management</h4>
+                        <p style="color: var(--gray-600); font-size: 0.9rem; margin-bottom: 1rem;">
+                            Manage user accounts and permissions
+                        </p>
+                        <button class="btn btn-primary" onclick="showUserManagement()">Manage Users</button>
+                    </div>
+
+                    <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: var(--border-radius);">
+                        <h4 style="margin-bottom: 0.5rem; color: var(--gray-800);">Group Management</h4>
+                        <p style="color: var(--gray-600); font-size: 0.9rem; margin-bottom: 1rem;">
+                            Manage Active Directory group mappings
+                        </p>
+                        <button class="btn btn-primary" onclick="showGroupManagement()">Manage Groups</button>
+                    </div>
+
+                    <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: var(--border-radius);">
+                        <h4 style="margin-bottom: 0.5rem; color: var(--gray-800);">System Logs</h4>
+                        <p style="color: var(--gray-600); font-size: 0.9rem; margin-bottom: 1rem;">
+                            View authentication and system logs
+                        </p>
+                        <button class="btn btn-primary" onclick="showSystemLogs()">View Logs</button>
+                    </div>
+
+                    <div style="padding: 1rem; border: 1px solid var(--gray-200); border-radius: var(--border-radius);">
+                        <h4 style="margin-bottom: 0.5rem; color: var(--gray-800);">Configuration</h4>
+                        <p style="color: var(--gray-600); font-size: 0.9rem; margin-bottom: 1rem;">
+                            Modify LDAP and application settings
+                        </p>
+                        <button class="btn btn-primary" onclick="showConfiguration()">Settings</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Security Information</div>
+                <div class="alert alert-warning">
+                    <strong>Security Notice:</strong> All administrative actions are logged and monitored. 
+                    Please ensure you follow company security policies when making changes.
+                </div>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Admin Groups Configured:</th>
+                            <td>Domain Admins, Application Admins, IT Administrators</td>
+                        </tr>
+                        <tr>
+                            <th>Session Timeout:</th>
+                            <td>30 minutes</td>
+                        </tr>
+                        <tr>
+                            <th>LDAP Security:</th>
+                            <td>TLS Encrypted</td>
+                        </tr>
+                        <tr>
+                            <th>Authentication Protocol:</th>
+                            <td>Kerberos + LDAP</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <a th:href="@{/}" class="btn btn-secondary">Back to Home</a>
+                <a th:href="@{/profile}" class="btn btn-secondary">View Profile</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 <span th:text="${logoText}">MyCompany</span>. All rights reserved.</p>
+            <p>Secure Single Sign-On Portal</p>
+        </div>
+    </footer>
+
+    <script>
+        function showUserManagement() {
+            alert('User Management functionality would be implemented here.\n\nThis would include:\n- View all users\n- Manage user roles\n- Reset passwords\n- Enable/disable accounts');
+        }
+
+        function showGroupManagement() {
+            alert('Group Management functionality would be implemented here.\n\nThis would include:\n- View AD group mappings\n- Configure admin groups\n- Manage role assignments');
+        }
+
+        function showSystemLogs() {
+            alert('System Logs functionality would be implemented here.\n\nThis would include:\n- Authentication logs\n- Error logs\n- Security events\n- Audit trail');
+        }
+
+        function showConfiguration() {
+            alert('Configuration functionality would be implemented here.\n\nThis would include:\n- LDAP server settings\n- Authentication timeouts\n- Security policies\n- Application settings');
+        }
+    </script>
+</body>
+</html>
