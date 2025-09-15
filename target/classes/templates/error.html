@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error - Corporate SSO Portal</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">MyCompany</a>
+            <h1 class="app-title">Corporate SSO Portal</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">An Error Occurred</div>
+                <div class="alert alert-error">
+                    <h3>Oops! Something went wrong.</h3>
+                    <p>We encountered an error while processing your request.</p>
+                </div>
+                
+                <div style="margin-top: 2rem;">
+                    <h4>Possible causes:</h4>
+                    <ul style="margin: 1rem 0; padding-left: 2rem;">
+                        <li>Network connectivity issues</li>
+                        <li>LDAP server unavailable</li>
+                        <li>Invalid credentials</li>
+                        <li>Insufficient permissions</li>
+                    </ul>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <h4>What you can do:</h4>
+                    <ul style="margin: 1rem 0; padding-left: 2rem;">
+                        <li>Try refreshing the page</li>
+                        <li>Check your network connection</li>
+                        <li>Contact your IT administrator if the problem persists</li>
+                    </ul>
+                </div>
+
+                <div style="margin-top: 2rem; text-align: center;">
+                    <a href="/" class="btn btn-primary">Return to Home</a>
+                    <a href="/login" class="btn btn-secondary">Try Login Again</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 MyCompany. All rights reserved.</p>
+            <p>Secure Single Sign-On Portal</p>
+        </div>
+    </footer>
+</body>
+</html>
