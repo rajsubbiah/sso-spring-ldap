@@ -41,6 +41,12 @@
             <artifactId>spring-boot-starter-data-ldap</artifactId>
         </dependency>
 
+        <!-- Spring Security LDAP -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-ldap</artifactId>
+        </dependency>
+
         <!-- Waffle for Windows Authentication -->
         <dependency>
             <groupId>com.github.waffle</groupId>

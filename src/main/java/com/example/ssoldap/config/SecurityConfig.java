@@ -111,15 +111,8 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
         
-        // Configure LDAP authentication if needed
-        if (!domain.isEmpty()) {
-            authBuilder.ldapAuthentication()
-                    .userSearchBase("")
-                    .userSearchFilter("(uid={0})")
-                    .groupSearchBase("ou=groups")
-                    .groupSearchFilter("(member={0})")
-                    .contextSource(contextSource());
-        }
+        // For now, just create a basic authentication manager
+        // LDAP configuration can be added later when LDAP server is available
         
         return authBuilder.build();
     }
