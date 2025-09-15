@@ -1,0 +1,21 @@
+ldap:
+  url: ldap://openldap:389
+  base: dc=test,dc=com
+  username: 
+  password: 
+  
+  user:
+    search-base: dc=test,dc=com
+    search-filter: (uid={0})
+
+server:
+  port: 8080
+
+logging:
+  level:
+    com.example.ssoldap: INFO
+    org.springframework.ldap: DEBUG
+
+spring:
+  application:
+    name: sso-spring-ldap
